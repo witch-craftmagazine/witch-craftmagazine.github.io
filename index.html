@@ -26,9 +26,12 @@
     />
     <meta property="og:url" content="https://witch-craftmagazine.github.io/" />
     <meta property="og:site_name" content="Witchcraft Magazine" />
-    <meta property="og:image" content="https://witch-craftmagazine.github.io/preview.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image"
+      content="https://witch-craftmagazine.github.io/preview.jpg"
+    />
+    <meta property="og:image:width" content="2420" />
+    <meta property="og:image:height" content="424" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@witch-craftmagazine" />
@@ -40,7 +43,12 @@
       name="twitter:description"
       content="We’ve breached the digital veil. Read the latest manifestations of magic, lore, and ritual. Are you ready to listen?"
     />
-    <meta name="twitter:image" content="https://witch-craftmagazine.github.io/preview.jpg" />
+    <meta
+      name="twitter:image"
+      content="https://witch-craftmagazine.github.io/preview.jpg"
+    />
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23150310'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%238f0040' stroke-width='1'/%3E%3Cpolygon points='16,5 18.35,12.27 26,12.27 19.82,16.73 22.18,24 16,19.54 9.82,24 12.18,16.73 6,12.27 13.65,12.27' fill='none' stroke='%23e8dbcc' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E" />
 
     <style>
       /* --- REGISTERED CUSTOM PROPERTIES --- */
@@ -1575,9 +1583,15 @@
         { root: null, rootMargin: "0px", threshold: 0.15 },
       );
 
-      document
-        .querySelectorAll(".reveal-up, .reveal-clip")
-        .forEach((el) => observer.observe(el));
+      document.querySelectorAll(".reveal-up, .reveal-clip").forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        // Force-trigger elements already in viewport at load (Chrome clip-path fix)
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add("in-view");
+        } else {
+          observer.observe(el);
+        }
+      });
 
       document.querySelectorAll(".t-card").forEach((card) => {
         let rafId = null;
